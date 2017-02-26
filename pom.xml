@@ -1,21 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.rupp.customer-management</groupId>
-  <artifactId>customer-management</artifactId>
-  <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>customer-management Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  <build>
-    <finalName>customer-management</finalName>
-  </build>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.rupp.customer-management</groupId>
+	<artifactId>customer-management</artifactId>
+	<packaging>war</packaging>
+	<version>1.0</version>
+	<name>customer-management Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<developers>
+		<developer>
+			<id>Sopheak</id>
+			<name>Sopheak Hang</name>
+			<email>hangsopheak.hod@gmail.com</email>
+			<url />
+		</developer>
+	</developers>
+	<properties>
+		<database.driver>com.mysql.jdbc.Driver</database.driver>
+		<database.url>jdbc:mysql://localhost:3306/customer-management?autoReconnect=true</database.url>
+		<database.username>root</database.username>
+    	<database.password></database.password>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- version 3.0.1 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		<!-- MySQL database driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.22</version>
+		</dependency>
+		<!-- common-dbcp2 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<!-- spring jdbc template -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.3.6.RELEASE</version>
+		</dependency>
+		<!-- jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>servlet-exercise</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.2.19.v20160908</version>
+				<configuration>
+					<scanIntervalSeconds>3</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/</contextPath>
+					</webApp>
+				</configuration>
+			</plugin>
+			
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>test</id>
+			<properties>
+				<database.driver>com.mysql.jdbc.Driver</database.driver>
+				<database.url>jdbc:mysql://test-qadb01:3306/database?autoReconnect=true</database.url>
+				<database.username>test-user</database.username>
+				<database.password>testpassword</database.password>
+			</properties>
+		</profile>
+		<profile>
+			<id>production</id>
+			<properties>
+				<database.driver>com.mysql.jdbc.Driver</database.driver>
+				<database.url>jdbc:mysql://prod-db01:3306/database?autoReconnect=true</database.url>
+				<database.username>produser</database.username>
+				<database.password>prodpassword</database.password>
+			</properties>
+		</profile>
+	</profiles>
 </project>
+
