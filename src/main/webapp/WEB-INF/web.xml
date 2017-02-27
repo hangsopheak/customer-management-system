@@ -25,12 +25,30 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>MyProfile</servlet-name>
-		<servlet-class>com.rupp.sopheak.MyProfileServlet</servlet-class>
+		<servlet-name>GetCustomers</servlet-name>
+		<servlet-class>com.rupp.sopheak.GetCustomersServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>MyProfile</servlet-name>
-		<url-pattern>/myProfile</url-pattern>
+		<servlet-name>GetCustomers</servlet-name>
+		<url-pattern>/getCustomers/</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddCustomer</servlet-name>
+		<servlet-class>com.rupp.sopheak.AddCustomerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddCustomer</servlet-name>
+		<url-pattern>/add-customer</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CustomerForm</servlet-name>
+		<servlet-class>com.rupp.sopheak.CustomerFormServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CustomerForm</servlet-name>
+		<url-pattern>/customer-form</url-pattern>
 	</servlet-mapping>
 	
 	

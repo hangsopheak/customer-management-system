@@ -126,5 +126,10 @@ public class Customer {
 		if(updatedDate != null) this.setCreatedDate((new SimpleDateFormat("yyyy-MM-dd H:m:s")).parse(updatedDate));
 	}
 	
+	public String getActionButtons(){
+		return "<a data-id='"+this.id+"' style='margin-right:10px; cursor:pointer' role='button'><i class='glyphicon glyphicon-pencil'></i></a>"
+				+ "<a data-id='"+this.id+"' style='cursor:pointer;' ><i class='glyphicon glyphicon-remove ' style='color:red'></i></a>";
+	}
+	
 
 }

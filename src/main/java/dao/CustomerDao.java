@@ -4,12 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-
-
-
 import model.Customer;
 import util.DBCP2DataSourceUtils;
 
@@ -20,21 +16,26 @@ public class CustomerDao {
 	public CustomerDao() {}
 
 	public Customer getById(Integer id) throws SQLException {
-		if (id == 0) {
+		if (id == null) {
 			return null;
 		}
 		System.out.println(jdbcTemplate.toString());
 		Customer customer = null;
+		String sql = "SELECT * FROM td_customer WHERE cus_id = ?";
         customer = jdbcTemplate.queryForObject(
-                "SELECT * FROM td_customer WHERE cus_id = ?",
+                sql,
                 new Object[]{id},
-               new CustomerMapper());
-         
+                new CustomerMapper());
 		return customer;
 	}
+	
+	public List<Customer> getAll(){
+		String sql = "SELECT * FROM td_customer";
+		return jdbcTemplate.query( sql, new CustomerMapper());
+	}
 
-	public void insert(Customer customer) {
-		jdbcTemplate.update(
+	public boolean insert(Customer customer) {
+		int inserted = jdbcTemplate.update(
 		        "INSERT INTO "
 		        + "td_customer ("
 		        + "cus_firstname, "
@@ -54,25 +55,41 @@ public class CustomerDao {
 		        customer.getPhone(),
 		        customer.getCreatedDateToString()
 		);	
+		
+		if(inserted > 0) return true;
+		else return false;
 	}
-
+	
+	public void delete(Integer id){
+		if(id == null) return;
+		jdbcTemplate.update(
+		        "DELETE FROM td_customer WHERE cus_id = ?", Integer.valueOf(id)
+		);		
+	}
+	
 	public void update(final int id, Customer customer) {
-
-	}
-
-	
-	
-	public static void main(String[] args) throws Exception {
-		
-  
-		CustomerDao c = new CustomerDao();
-		Customer cc = c.getById(1);
-		Customer c2 = new Customer();
-		c2.setFirstname("Chea");
-		c2.setLastname("An");
-		c2.setCreatedDateFromString("2017-02-27 11:11:11");
-		
-		c.insert(c2);
+		jdbcTemplate.update(
+		        "UPDATE  "
+		        + "td_customer SET "
+		        + "cus_firstname = ?, "
+		        + "cus_lastname = ?, "
+		        + "cus_gender = ?, "
+		        + "cus_email_address = ?, "
+		        + "cus_DOB = ?, "
+		        + "cus_address = ?, "
+		        + "cus_phoneNumber = ?, "
+		        + "date_updated = ?"
+		        + "WHERE id = ?",
+		        customer.getFirstname(), 
+		        customer.getLastname(), 
+		        customer.getGender(), 
+		        customer.getEmail(), 
+		        customer.getDob(),
+		        customer.getAddress(),
+		        customer.getPhone(),
+		        customer.getUpdatedDateToString(),
+		        customer.getId()
+		);		
 	}
 
 }
@@ -81,6 +98,7 @@ public class CustomerDao {
 
 	public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Customer customer = new Customer();
+		customer.setId(rs.getInt("cus_id"));
 		customer.setFirstname(rs.getString("cus_firstname"));
 		customer.setLastname(rs.getString("cus_lastname"));
 		customer.setGender(rs.getString("cus_gender"));

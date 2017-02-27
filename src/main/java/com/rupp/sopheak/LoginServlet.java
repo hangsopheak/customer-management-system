@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 			if(this.authenticated(username, password)){
 				session.setAttribute("userId", this.authenticatedUser.getId());
 				session.setAttribute("username", this.authenticatedUser.getUsername());
-				response.sendRedirect("/myProfile");
+				response.sendRedirect("/customer-form");
 			}else{
 				response.sendRedirect("/login");
 			}

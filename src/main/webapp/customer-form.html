@@ -5,27 +5,135 @@
 <title>Customer Form</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
-<style>
-body{padding-top:30px;}
-
-.glyphicon {  margin-bottom: 10px;margin-right: 10px;}
-
-small {
-display: block;
-line-height: 1.428571429;
-color: #999;
-}
-</style>
+<link href="assets/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
 	    <div class="row">
-	        
+	    	<button class="btn btn-primary" id="btn-new" style="margin-bottom:-70px;">Add New</button>
+	        <table class="table" id="tbl-customer-list"
+                       data-toggle="table"
+                       data-toolbar="#get"
+                       data-url="/getCustomers/"
+                       data-search="true"
+                       data-pagination="true"
+                       data-side-pagination="server"
+                       data-page-list="[20,50,100]"
+                       data-pagination="true"
+                       data-height="500"
+                       data-sort-order="desc"
+                    >
+                    <thead>
+	                    <tr>
+	                        <th data-field="id" data-sortable="true">ID</th>
+	                        <th data-field="firstname" data-visible="true">First Name</th>
+	                        <th data-field="lastname" data-visible="true">Last Name</th>
+	                        <th data-field="gender" data-visible="true">Gender</th>
+	                        <th data-field="email" data-sortable="true" >Email</th>
+	                        <th data-field="dobToString" data-sortable="true" >DOB</th>
+	                        <th data-field="address" data-sortable="true">Address</th>
+	                        <th data-field="phone" data-sortable="true">Phone Number</th>
+	                        <th data-field="createdDateToString" data-sortable="true">Created Date</th>
+	                        <th data-field="updatedDateToString" data-sortable="true">Updated Date</th>
+	                        <th data-field="actionButtons" data-sortable="true">Updated Date</th>
+	                       	                       
+	                    </tr>
+                    </thead>
+                </table>
 	    </div>
 	</div>
 	
+<!-- Modal -->
+<div id="customer-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Customer</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="customer-form">        
+	                    <div class="col-lg-12">
+	                        <label>First Name:</label>
+	                        <input type="text" class="form-control" id="firstname" name="firstname" value=""/>
+	                    </div>
+	                    <div class="col-lg-12">
+	                        <label>Last Name:</label>
+	                        <input type="text" class="form-control" id="lastname" name="lastname" value=""/>
+	                    </div>
+	                    <div class="col-lg-12">
+	                        <label>Gender:</label>
+	                        <select class="form-control gender" id="gender" name="gender">
+	                            <option value="M">Male</option>
+	                            <option value="F">Female</option>
+	                        </select>
+	                    </div>
+	                      <div class="col-lg-12">
+	                        <label>Email:</label>
+	                        <input type="text" class="form-control" id="email" name="email" value=""/>
+	                    </div>
+	                      <div class="col-lg-12">
+	                        <label>DOB:</label>
+	                        <input type="text" class="form-control" id="dob" name="dob" value=""/>
+	                    </div>
+	                    <div class="col-lg-12">
+	                        <label>Phone Number:</label>
+	                        <input type="text" class="form-control" id="phone-number" name="phone_number" value=""/>
+	                    </div>
+	                      <div class="col-lg-12">
+	                        <label>Address:</label>
+	                        <textarea class="form-control" id="address" name="address" value=""/></textarea>
+	                    </div>    
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn-add" >Add</button>
+                <button type="button" class="btn btn-default" id="btn-cancel" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 	
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="assets/plugins/bootstrap-table/bootstrap-table.js"></script>
+
+<script>
+var id = '';
+$(function(){
+	$('#btn-new').on('click', function(){
+		clearForm();
+        $('#customer-modal').modal();
+	});
+	
+	$('#btn-add').on('click', function(){
+		$.ajax({
+			url: '/add-customer',
+			data: $('#customer-form').serialize(),
+			dataType: 'JSON',
+			type: 'POST'
+		}).done(function(r){
+			if(parseInt(r.status) == 1){
+                $('#tbl-customer-list').bootstrapTable('refresh');
+                $('#btn-cancel').click();
+				alert(r.message);
+
+			}else{
+				alert(r.message);
+			}
+		})
+	});
+});
+
+function clearForm(){
+	$('#firstname, #lastname, #email, #dob, #phone-number, #address').val('');
+	$('#gender').val('M');
+}
+</script>	
 </body>
 </html>
