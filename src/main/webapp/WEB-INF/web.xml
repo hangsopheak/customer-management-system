@@ -34,12 +34,39 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>GetCustomer</servlet-name>
+		<servlet-class>com.rupp.sopheak.GetCustomerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetCustomer</servlet-name>
+		<url-pattern>/get-customer</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>AddCustomer</servlet-name>
 		<servlet-class>com.rupp.sopheak.AddCustomerServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AddCustomer</servlet-name>
 		<url-pattern>/add-customer</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UpdateCustomer</servlet-name>
+		<servlet-class>com.rupp.sopheak.UpdateCustomerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateCustomer</servlet-name>
+		<url-pattern>/update-customer</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteCustomer</servlet-name>
+		<servlet-class>com.rupp.sopheak.DeleteCustomerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteCustomer</servlet-name>
+		<url-pattern>/delete-customer</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

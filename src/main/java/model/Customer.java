@@ -127,8 +127,8 @@ public class Customer {
 	}
 	
 	public String getActionButtons(){
-		return "<a data-id='"+this.id+"' style='margin-right:10px; cursor:pointer' role='button'><i class='glyphicon glyphicon-pencil'></i></a>"
-				+ "<a data-id='"+this.id+"' style='cursor:pointer;' ><i class='glyphicon glyphicon-remove ' style='color:red'></i></a>";
+		return "<a data-id='"+this.id+"' class='edit' style='margin-right:10px; cursor:pointer' role='button'><i class='glyphicon glyphicon-pencil'></i></a>"
+				+ "<a data-id='"+this.id+"' class='delete' style='cursor:pointer;' ><i class='glyphicon glyphicon-remove ' style='color:red'></i></a>";
 	}
 	
 

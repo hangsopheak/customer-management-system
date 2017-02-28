@@ -25,13 +25,13 @@ import model.Message;
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/add-customer")
-public class AddCustomerServlet extends HttpServlet {
+@WebServlet("/update-customer")
+public class UpdateCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddCustomerServlet() {
+    public UpdateCustomerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,6 +48,7 @@ public class AddCustomerServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		Message m = new Message();
 		boolean valid = EmailValidator.getInstance().isValid(request.getParameter("email"));
 		if(!valid){
@@ -56,7 +57,7 @@ public class AddCustomerServlet extends HttpServlet {
 		}
 		
 		if(valid){
-			System.out.println("zzz" + request.getParameter("firstname"));
+			//System.out.println("zzz" + request.getParameter("firstname"));
 			if(request.getParameter("firstname").isEmpty() || 
 				request.getParameter("lastname").isEmpty() || 
 				request.getParameter("phone_number").isEmpty() ||
@@ -64,12 +65,8 @@ public class AddCustomerServlet extends HttpServlet {
 				valid = false;
 				m.setStatus(0);
 				m.setMessage("Please fill all require field");
-				//System.out.println("aaa");
-
-			}
-			
+			}	
 		}
-		
 		
 		if(valid){
 			Customer customer = new Customer();
@@ -79,20 +76,22 @@ public class AddCustomerServlet extends HttpServlet {
 			customer.setEmail(request.getParameter("email"));
 			customer.setAddress(request.getParameter("address"));
 			customer.setPhone(request.getParameter("phone_number"));
+			int id = Integer.parseInt(request.getParameter("id"));
 			try {
 				customer.setDobFromString(request.getParameter("dob"));
-				customer.setCreatedDate(new Date());
+				customer.setUpdatedDate(new Date());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			CustomerDao c = new CustomerDao();	
-			if(c.insert(customer)){
+			
+			CustomerDao c = new CustomerDao();
+			if(c.update(id, customer)){
 				m.setStatus(1);
-				m.setMessage("Customer is added successfully");
+				m.setMessage("Customer is updated successfully");
 			}else{
 				m.setStatus(0);
-				m.setMessage("Adding customer error");
+				m.setMessage("Updating customer error");
 			}
 		}
 		
@@ -105,6 +104,6 @@ public class AddCustomerServlet extends HttpServlet {
         mapper.writeValue(out, m);
 
 	}
-
+	
 
 }

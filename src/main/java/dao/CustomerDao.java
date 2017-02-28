@@ -19,19 +19,33 @@ public class CustomerDao {
 		if (id == null) {
 			return null;
 		}
-		System.out.println(jdbcTemplate.toString());
 		Customer customer = null;
 		String sql = "SELECT * FROM td_customer WHERE cus_id = ?";
+		System.out.println(sql);
         customer = jdbcTemplate.queryForObject(
                 sql,
                 new Object[]{id},
                 new CustomerMapper());
+        System.out.println(customer);
 		return customer;
 	}
 	
-	public List<Customer> getAll(){
-		String sql = "SELECT * FROM td_customer";
-		return jdbcTemplate.query( sql, new CustomerMapper());
+	public List<Customer> getAll(int limit, int offset, String search){
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT SQL_CALC_FOUND_ROWS "
+				+ "t.* FROM td_customer t ");
+		if(search != "" && search != null){
+			// fitler by phone number or email address
+			sql.append("WHERE cus_phoneNumber LIKE '%" + search + "%'" );
+			sql.append(" OR cus_email_address LIKE '%" + search + "%'" );
+		}
+		sql.append(" ORDER BY cus_id DESC LIMIT " + offset + ", " + limit );
+		System.out.println(sql.toString());
+		return jdbcTemplate.query( sql.toString(), new CustomerMapper());
+	}
+	
+	public int getFoundRows(){
+		return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM td_customer", Integer.class);
 	}
 
 	public boolean insert(Customer customer) {
@@ -60,15 +74,14 @@ public class CustomerDao {
 		else return false;
 	}
 	
-	public void delete(Integer id){
-		if(id == null) return;
-		jdbcTemplate.update(
-		        "DELETE FROM td_customer WHERE cus_id = ?", Integer.valueOf(id)
-		);		
+	public boolean delete(Integer id){
+		if(id == null) return false;
+		if(jdbcTemplate.update( "DELETE FROM td_customer WHERE cus_id = ?", Integer.valueOf(id)) > 0) return true;
+		else return false;
 	}
 	
-	public void update(final int id, Customer customer) {
-		jdbcTemplate.update(
+	public boolean update(final int id, Customer customer) {
+		int updated = jdbcTemplate.update(
 		        "UPDATE  "
 		        + "td_customer SET "
 		        + "cus_firstname = ?, "
@@ -79,7 +92,7 @@ public class CustomerDao {
 		        + "cus_address = ?, "
 		        + "cus_phoneNumber = ?, "
 		        + "date_updated = ?"
-		        + "WHERE id = ?",
+		        + "WHERE cus_id = ?",
 		        customer.getFirstname(), 
 		        customer.getLastname(), 
 		        customer.getGender(), 
@@ -88,8 +101,10 @@ public class CustomerDao {
 		        customer.getAddress(),
 		        customer.getPhone(),
 		        customer.getUpdatedDateToString(),
-		        customer.getId()
-		);		
+		        id
+		);
+		if(updated > 0) return true;
+		else return false;
 	}
 
 }

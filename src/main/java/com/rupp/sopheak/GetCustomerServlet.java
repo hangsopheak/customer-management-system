@@ -4,8 +4,7 @@ package com.rupp.sopheak;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,21 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 import dao.CustomerDao;
-import model.BootstrapTableCustomerFormatter;
 import model.Customer;
 
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/getCustomers")
-public class GetCustomersServlet extends HttpServlet {
+@WebServlet("/getCustomer")
+public class GetCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetCustomersServlet() {
+    public GetCustomerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,20 +36,23 @@ public class GetCustomersServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		CustomerDao c = new CustomerDao();
-		Integer offset = Integer.parseInt(request.getParameter("offset"));
-		Integer limit = Integer.parseInt(request.getParameter("limit"));
-		String search = request.getParameter("search");
-		List<Customer> customers = c.getAll(limit, offset, search);
+		Customer customer = null ;
+		int id = Integer.parseInt(request.getParameter("id"));
+		try {
+			customer = c.getById(id);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
         try {
             ObjectMapper mapper = new ObjectMapper();
-            BootstrapTableCustomerFormatter bsCustomerMapper = new BootstrapTableCustomerFormatter();
-            bsCustomerMapper.setTotal(c.getFoundRows());
-            bsCustomerMapper.setRows(customers);
+
             // Set response content type
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             PrintWriter out = response.getWriter();
-            mapper.writeValue(out, bsCustomerMapper);
+            mapper.writeValue(out, customer);
         } catch (Exception e) {
             e.printStackTrace();
             throw new ServletException("something is wrong with server " + e.getMessage());
