@@ -76,15 +76,10 @@ public class UpdateCustomerServlet extends HttpServlet {
 			customer.setEmail(request.getParameter("email"));
 			customer.setAddress(request.getParameter("address"));
 			customer.setPhone(request.getParameter("phone_number"));
+			customer.setDobFromString(request.getParameter("dob"));
+			customer.setUpdatedDate(new Date());
 			int id = Integer.parseInt(request.getParameter("id"));
-			try {
-				customer.setDobFromString(request.getParameter("dob"));
-				customer.setUpdatedDate(new Date());
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+		
 			CustomerDao c = new CustomerDao();
 			if(c.update(id, customer)){
 				m.setStatus(1);

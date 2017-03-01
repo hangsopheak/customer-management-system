@@ -79,13 +79,8 @@ public class AddCustomerServlet extends HttpServlet {
 			customer.setEmail(request.getParameter("email"));
 			customer.setAddress(request.getParameter("address"));
 			customer.setPhone(request.getParameter("phone_number"));
-			try {
-				customer.setDobFromString(request.getParameter("dob"));
-				customer.setCreatedDate(new Date());
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			customer.setDobFromString(request.getParameter("dob"));
+			customer.setCreatedDate(new Date());
 			CustomerDao c = new CustomerDao();	
 			if(c.insert(customer)){
 				m.setStatus(1);

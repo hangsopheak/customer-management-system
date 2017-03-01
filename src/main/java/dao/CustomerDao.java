@@ -120,14 +120,9 @@ public class CustomerDao {
 		customer.setEmail(rs.getString("cus_email_address"));
 		customer.setAddress(rs.getString("cus_address"));
 		customer.setPhone(rs.getString("cus_phoneNumber"));
-		try {
-			customer.setDobFromString(rs.getString("cus_DOB"));
-			customer.setCreatedDateFromString(rs.getString("date_created"));
-			customer.setUpdatedDateFromString(rs.getString("date_updated"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		customer.setDobFromString(rs.getString("cus_DOB"));
+		customer.setCreatedDateFromString(rs.getString("date_created"));
+		customer.setUpdatedDateFromString(rs.getString("date_updated"));
 		return customer;
 	}
 }

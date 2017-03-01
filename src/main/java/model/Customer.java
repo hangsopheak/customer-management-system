@@ -88,8 +88,15 @@ public class Customer {
 		this.dob = dob;
 	}
 	
-	public void setDobFromString(String dob) throws ParseException{
-		if(dob != null) this.setDob((new SimpleDateFormat("yyyy-MM-dd")).parse(dob));
+	public void setDobFromString(String dob){
+		if(dob != null) {
+			try{
+				this.setDob((new SimpleDateFormat("yyyy-MM-dd")).parse(dob));
+			}catch(ParseException e){
+				e.printStackTrace();
+			}
+			
+		}
 	}
 	
 	public Date getCreatedDate() {
@@ -105,8 +112,14 @@ public class Customer {
 		this.createdDate = createdDate;
 	}
 	
-	public void setCreatedDateFromString(String createdDate) throws ParseException{
-		if(createdDate != null) this.setCreatedDate((new SimpleDateFormat("yyyy-MM-dd H:m:s")).parse(createdDate));
+	public void setCreatedDateFromString(String createdDate){
+		if(createdDate != null) {
+			try{
+				this.setCreatedDate((new SimpleDateFormat("yyyy-MM-dd H:m:s")).parse(createdDate));
+			}catch(ParseException e){
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public Date getUpdatedDate() {
@@ -122,8 +135,14 @@ public class Customer {
 		this.updatedDate = updatedDate;
 	}
 	
-	public void setUpdatedDateFromString(String updatedDate) throws ParseException{
-		if(updatedDate != null) this.setCreatedDate((new SimpleDateFormat("yyyy-MM-dd H:m:s")).parse(updatedDate));
+	public void setUpdatedDateFromString(String updatedDate){
+		if(updatedDate != null) {
+			try{
+				this.setUpdatedDate((new SimpleDateFormat("yyyy-MM-dd H:m:s")).parse(updatedDate));
+			}catch(ParseException e){
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public String getActionButtons(){
