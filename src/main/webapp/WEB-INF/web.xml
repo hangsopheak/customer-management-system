@@ -3,9 +3,6 @@
 
 <web-app>
 	<display-name>Customer Managment System</display-name>
-	
-	
-
 	<servlet>
 		<servlet-name>Login</servlet-name>
 		<servlet-class>com.rupp.sopheak.LoginServlet</servlet-class>
@@ -73,10 +70,13 @@
 		<servlet-name>CustomerForm</servlet-name>
 		<servlet-class>com.rupp.sopheak.CustomerFormServlet</servlet-class>
 	</servlet>
+	
+	
 	<servlet-mapping>
 		<servlet-name>CustomerForm</servlet-name>
 		<url-pattern>/customer-form</url-pattern>
 	</servlet-mapping>
+	
 	
 	
 	<servlet> <!-- servlet definition -->
@@ -115,7 +115,7 @@
 
 	<filter-mapping>
 		<filter-name>MyFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/app/*</url-pattern>
 	</filter-mapping>
 	<welcome-file-list>  
 	   <welcome-file>login.jsp</welcome-file>  

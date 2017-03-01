@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -37,7 +36,8 @@ public class GetCustomersServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		 
+		 
 		CustomerDao c = new CustomerDao();
 		Integer offset = Integer.parseInt(request.getParameter("offset"));
 		Integer limit = Integer.parseInt(request.getParameter("limit"));

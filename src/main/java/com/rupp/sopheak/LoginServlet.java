@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.sendRedirect("/login.jsp");
+		response.sendRedirect("/login.html");
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			response.sendRedirect("/login.jsp");
+			response.sendRedirect("/login");
 
 		}
 	}

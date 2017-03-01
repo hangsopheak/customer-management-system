@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.42)
 # Database: customer-management
-# Generation Time: 2017-02-26 15:58:27 +0000
+# Generation Time: 2017-03-01 17:02:40 +0000
 # ************************************************************
 
 
@@ -19,19 +19,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE TABLE `td_customer` (
-  `cus_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `cus_firstname` varchar(50) NOT NULL DEFAULT '',
-  `cus_lastname` varchar(50) NOT NULL DEFAULT '',
-  `cus_gender` varchar(1) DEFAULT NULL COMMENT 'M: Male, F: Female',
-  `cus_email_address` varchar(150) DEFAULT NULL,
-  `cus_DOB` datetime DEFAULT NULL,
-  `cus_address` mediumtext,
-  `cus_phoneNumber` varchar(11) DEFAULT NULL,
-  `date_created` datetime NOT NULL,
-  `date_updated` datetime DEFAULT NULL,
-  PRIMARY KEY (`cus_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 # Dump of table td_customer
 # ------------------------------------------------------------
@@ -57,7 +44,17 @@ LOCK TABLES `td_customer` WRITE;
 
 INSERT INTO `td_customer` (`cus_id`, `cus_firstname`, `cus_lastname`, `cus_gender`, `cus_email_address`, `cus_DOB`, `cus_address`, `cus_phoneNumber`, `date_created`, `date_updated`)
 VALUES
-	(1,'Sopheak','Hang','M','hangsopheak@gmail.com','1992-06-29 00:00:00','Phnom Penh, Cambodia','092228595','2017-02-26 11:00:00',NULL);
+	(1,'Sopheak','Hang','M','hangsopheak@gmail.com','1992-06-29 00:00:00','Phnom Penh, Cambodia','092228595','2017-02-26 11:00:00',NULL),
+	(2,'Neath','Seng','F','sengneath@gmail.com','1993-09-03 00:00:00','Phnom Penh','089999999','2017-02-28 00:41:41',NULL),
+	(3,'Van','Dara','M','dara@gmail.com','1993-02-01 00:00:00','Phnom Penh','01233333','2017-02-28 00:47:18',NULL),
+	(4,'Heng','Vichet','M','vichet@gmail.com','1994-04-01 00:00:00','Phnom Penh','01233333','2017-02-28 00:48:51','2017-03-01 23:42:48'),
+	(5,'Heng','Nary','F','nary@gmail.com','1992-08-09 00:00:00','PP','01222222','2017-02-28 00:50:21',NULL),
+	(6,'Vicheka','Teng','M','vicheka@gmail.com','1992-09-09 00:00:00','Prey Veng','01222222','2017-02-28 00:51:27','2017-03-01 23:43:29'),
+	(7,'Heng','Hdng','M','heng@gmail.com','1994-08-08 00:00:00','','098888888','2017-02-28 00:53:11',NULL),
+	(8,'Hema','Kol','M','hema@gmail.com','1992-09-09 00:00:00','','01999999','2017-02-28 21:11:41','2017-03-01 23:44:05'),
+	(9,'Yutthy','Uong','M','yutthy@gmail.com','1993-09-09 00:00:00','Phnom Penh','012121212','2017-02-28 21:12:11','2017-03-01 23:45:16'),
+	(10,'Rotana','Mao','M','rotana@gmail.com','1992-01-02 00:00:00','','012333333','2017-02-28 21:45:43','2017-03-01 23:45:05'),
+	(12,'Sao','Sok','M','sao@gmail.com','1995-06-13 00:00:00','','012222222','2017-03-01 00:16:53','2017-03-01 23:46:02');
 
 /*!40000 ALTER TABLE `td_customer` ENABLE KEYS */;
 UNLOCK TABLES;

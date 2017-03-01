@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Login
@@ -29,14 +28,8 @@ public class CustomerFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 HttpSession session = request.getSession(true);
-		 if (session.getAttribute("userId") != null) {
-			 	request.setAttribute("userId", session.getAttribute("userId"));
-			 	request.setAttribute("username", session.getAttribute("username"));
-				response.sendRedirect("/customer-form.html");
-		 }else{
-			 response.sendRedirect("/login");
-		 }
+		
+			 response.sendRedirect("/app/customer-form.html");
 	}
 
 	/**

@@ -10,6 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet Filter implementation class MyFilter
@@ -36,16 +39,17 @@ public class MyFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         // Get the IP address of client machine.   
-        String ipAddress = request.getRemoteAddr();
-        
-        Long currentTime = System.currentTimeMillis();
-
-        chain.doFilter(request, response);// sends request to next resource
-        
-        Long endTime = System.currentTimeMillis();
-        System.out.println("Access from IP : " + ipAddress );
-        System.out.println("Date : " + new Date(endTime));
-        System.out.println("Time spent for this request " +  (endTime- currentTime) +" millis");
+	
+		HttpServletRequest req = (HttpServletRequest)request;
+	    HttpServletResponse resp = (HttpServletResponse)response;
+	    String requestPath = req.getRequestURI();
+		HttpSession session = req.getSession(true);
+		
+		if (session.getAttribute("userId") != null) {	
+	        chain.doFilter(request, response);// sends request to next resource
+		 }else{
+			 resp.sendRedirect("/login");
+		 }
 
 	}
 
@@ -56,5 +60,6 @@ public class MyFilter implements Filter {
 		// TODO Auto-generated method stub
 		System.out.println("Filter destroy called");
 	}
-
+	
+   
 }
