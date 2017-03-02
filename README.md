@@ -40,4 +40,11 @@ mvn jetty:run
 <pre>
 http:localhost:8080
 </pre>
-10. You have done it!!!
+
+10. Login account:
+<pre>
+username: admin, password: adminPassword
+username: user-test, password: userPassword
+</pre>
+
+11. You have done it!!!
