@@ -16,7 +16,12 @@
 			<url />
 		</developer>
 	</developers>
-
+	  <properties>
+	    <database.driver>com.mysql.jdbc.Driver</database.driver>
+	    <database.url>jdbc:mysql://localhost:3306/customer-management?autoReconnect=true</database.url>
+	    <database.username>root</database.username>
+	    <database.password></database.password>
+	  </properties>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -67,6 +72,17 @@
 	</dependencies>
 	<build>
 		<finalName>hangsopheak-weekend-assignment</finalName>
+		<resources>
+            <!-- base set of resources -->
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+            <!-- filter some files -->
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+    </resources>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
