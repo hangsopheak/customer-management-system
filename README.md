@@ -19,7 +19,7 @@ git clone https://github.com/hangsopheak/customer-managment-system.git
 </pre>
 
 2. Import database from customer-management.sql in the root of project
-3. Update database connection configuration in src/main/resources/application.properties
+3. Update database connection configuration in pom.xml
 4. cd to project directory
 5. Install maven dependencies:
 <pre>
